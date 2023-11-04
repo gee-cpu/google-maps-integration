@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "api",
+      "type": "com.gonchaba.maps.config.GoogleMapsConfig",
+      "sourceType": "com.gonchaba.maps.config.GoogleMapsConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "api.key",
+      "type": "java.lang.String",
+      "sourceType": "com.gonchaba.maps.config.GoogleMapsConfig"
+    }
+  ],
+  "hints": []
+}

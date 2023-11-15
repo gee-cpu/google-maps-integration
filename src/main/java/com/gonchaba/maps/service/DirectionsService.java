@@ -1,9 +1,11 @@
 package com.gonchaba.maps.service;
 
-import com.gonchaba.maps.dto.requestdto.DirectionsRequestDTO;
-import com.gonchaba.maps.model.Direction;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.DirectionsRoute;
+
+import java.io.IOException;
 
 public interface DirectionsService {
 
-    Direction getDirections(DirectionsRequestDTO requestDTO);
+    DirectionsRoute getDirections(String origin, String destination) throws ApiException, InterruptedException, IOException;
 }

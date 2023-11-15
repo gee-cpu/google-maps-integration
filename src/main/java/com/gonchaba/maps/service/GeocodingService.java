@@ -1,8 +1,10 @@
+
 package com.gonchaba.maps.service;
 
-import com.gonchaba.maps.dto.requestdto.GeocodingRequestDTO;
-import com.gonchaba.maps.dto.responsedto.GeocodingResponseDTO;
+
+import com.google.maps.model.GeocodingResult;
 
 public interface GeocodingService {
-    GeocodingResponseDTO geocode(GeocodingRequestDTO requestDTO);
+    GeocodingResult geocodeAddress(String address);
 }
+

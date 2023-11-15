@@ -7,21 +7,8 @@ spring:
   application:
     name: maps
 
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: admin
-  jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: update
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
 api:
   key: AIzaSyDgJRj13LPFNVu_3BggGe1zxpxVpC2OS5k
-
 
 
 

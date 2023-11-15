@@ -1,50 +1,40 @@
-/*
 package com.gonchaba.maps.service;
 
-import com.gonchaba.maps.client.PlacesClient;
-import com.gonchaba.maps.dto.requestdto.PlacesRequestDTO;
-import com.gonchaba.maps.dto.responsedto.PlacesResponseDTO;
-import com.gonchaba.maps.model.Place;
-import com.gonchaba.maps.repository.PlacesRepository;
-import jakarta.transaction.Transactional;
+import com.gonchaba.maps.config.GoogleMapsConfig;
+import com.google.maps.GeoApiContext;
+import com.google.maps.PlacesApi;
+import com.google.maps.model.PlaceDetails;
+import com.google.maps.model.PlacesSearchResponse;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class PlacesServiceImpl implements PlacesService {
-    private final PlacesClient placesClient;
-    private final PlacesRepository placesRepository;
+    private final GeoApiContext geoApiContext;
 
-    public PlacesServiceImpl(PlacesClient placesClient, PlacesRepository placesRepository) {
-        this.placesClient = placesClient;
-        this.placesRepository = placesRepository;
+    public PlacesServiceImpl(GoogleMapsConfig mapsConfig) {
+        this.geoApiContext = new GeoApiContext.Builder()
+                .apiKey(mapsConfig.getKey())
+                .build();
     }
 
     @Override
-    @Transactional
-    public PlacesResponseDTO findNearbyPoliceStations(PlacesRequestDTO requestDTO) {
+    public PlacesSearchResponse searchPlaces(String query) {
+        try {
+            return PlacesApi.textSearchQuery(geoApiContext, query).await();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-        PlacesResponseDTO cachedResults = placesRepository.findByLocationAndRadius(requestDTO.getLocation(), requestDTO.getRadius());
-
-        if (cachedResults != null) {
-            return cachedResults;
-        } else {
-            PlacesResponseDTO responseDTO = placesClient.findNearbyPoliceStations(
-                    requestDTO.getLocation(),
-                    requestDTO.getRadius(),
-                    requestDTO.getKeyword(),
-                    requestDTO.getApiKey()
-            );
-
-            if ("OK".equals(responseDTO.getStatus())) {
-                List<Place> places = responseDTO.getResults();
-                placesRepository.saveAll(places);
-                return responseDTO;
-            }
-
-            return responseDTO;
+    @Override
+    public PlaceDetails getPlaceDetails(String placeId) {
+        try {
+            return PlacesApi.placeDetails(geoApiContext, placeId).await();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
-*/

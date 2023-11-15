@@ -1,9 +1,12 @@
 package com.gonchaba.maps.service;
 
-import com.gonchaba.maps.dto.requestdto.PlacesRequestDTO;
-import com.gonchaba.maps.dto.responsedto.PlacesResponseDTO;
+
+import com.google.maps.model.PlaceDetails;
+import com.google.maps.model.PlacesSearchResponse;
 
 public interface PlacesService {
-    PlacesResponseDTO findNearbyPoliceStations(PlacesRequestDTO requestDTO);
+    PlacesSearchResponse searchPlaces(String query);
+    PlaceDetails getPlaceDetails(String placeId);
 }
+
 

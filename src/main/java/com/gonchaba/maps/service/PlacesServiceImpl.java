@@ -5,7 +5,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.PlaceDetails;
 import com.google.maps.model.PlacesSearchResponse;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.google.maps.model.RankBy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,5 +36,13 @@ public class PlacesServiceImpl implements PlacesService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public PlacesSearchResponse findPoliceStations(double latitude, double longitude) throws Exception {
+        return PlacesApi.nearbySearchQuery(geoApiContext, new com.google.maps.model.LatLng(latitude, longitude))
+                .keyword("police station")
+                .rankby(RankBy.DISTANCE)
+                .await();
     }
 }

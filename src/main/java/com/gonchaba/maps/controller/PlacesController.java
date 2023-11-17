@@ -1,6 +1,5 @@
 package com.gonchaba.maps.controller;
 
-// PlacesController.java
 
 import com.gonchaba.maps.service.PlacesService;
 import com.google.maps.model.PlaceDetails;
@@ -29,6 +28,19 @@ public class PlacesController {
     public ResponseEntity<PlaceDetails> getPlaceDetails(@PathVariable String placeId) {
         PlaceDetails placeDetails = placesService.getPlaceDetails(placeId);
         return ResponseEntity.ok(placeDetails);
+    }
+
+    @GetMapping("/places/police-stations")
+    public ResponseEntity<PlacesSearchResponse> findPoliceStations(
+            @RequestParam double latitude,
+            @RequestParam double longitude
+    ) {
+        try {
+            PlacesSearchResponse response = placesService.findPoliceStations(latitude, longitude);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 }
 

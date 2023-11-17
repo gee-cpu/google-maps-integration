@@ -1,4 +1,3 @@
-
 package com.gonchaba.maps.controller;
 
 import com.gonchaba.maps.service.GeocodingService;

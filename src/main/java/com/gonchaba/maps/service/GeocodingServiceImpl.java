@@ -1,4 +1,3 @@
-
 package com.gonchaba.maps.service;
 
 
@@ -6,7 +5,6 @@ import com.gonchaba.maps.config.GoogleMapsConfig;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service

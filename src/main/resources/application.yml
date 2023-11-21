@@ -5,7 +5,7 @@ spring:
     config:
       enabled: false
   application:
-    name: maps
+    name: google-maps-integration
 
 api:
   key: AIzaSyDgJRj13LPFNVu_3BggGe1zxpxVpC2OS5k

@@ -2,7 +2,6 @@ package com.gonchaba.maps.controller;
 
 import com.gonchaba.maps.service.DirectionsService;
 import com.google.maps.model.DirectionsRoute;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +24,11 @@ public class DirectionsController {
             @RequestParam String origin,
             @RequestParam String destination
     ) {
-        try {
-            DirectionsRoute route = directionsService.getDirections(origin, destination);
-            return ResponseEntity.ok(route);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+
+        DirectionsRoute route = directionsService.getDirections(origin, destination);
+        return ResponseEntity.ok(route);
+
     }
+
 }
 

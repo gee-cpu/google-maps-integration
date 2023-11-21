@@ -9,7 +9,7 @@ public interface PlacesService {
 
     PlaceDetails getPlaceDetails(String placeId);
 
-    PlacesSearchResponse findPoliceStations(double latitude, double longitude) throws Exception;
+    PlacesSearchResponse findPoliceStations(double latitude, double longitude) ;
 }
 
 

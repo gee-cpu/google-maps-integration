@@ -35,12 +35,11 @@ public class PlacesController {
             @RequestParam double latitude,
             @RequestParam double longitude
     ) {
-        try {
-            PlacesSearchResponse response = placesService.findPoliceStations(latitude, longitude);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).build();
-        }
+
+        PlacesSearchResponse response = placesService.findPoliceStations(latitude, longitude);
+        return ResponseEntity.ok(response);
     }
+
+
 }
 

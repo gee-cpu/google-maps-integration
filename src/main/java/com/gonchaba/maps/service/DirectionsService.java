@@ -7,5 +7,5 @@ import java.io.IOException;
 
 public interface DirectionsService {
 
-    DirectionsRoute getDirections(String origin, String destination) throws ApiException, InterruptedException, IOException;
+    DirectionsRoute getDirections(String origin, String destination);
 }

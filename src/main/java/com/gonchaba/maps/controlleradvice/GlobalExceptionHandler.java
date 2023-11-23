@@ -9,36 +9,39 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(DirectionsException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessage> handleDirectionsException(DirectionsException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage()));
+        return new ResponseEntity<>(new ErrorMessage()
+                .builder().errorCode(ex.getErrorCode())
+                .message(ex.getMessage())
+                .build(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(GeocodingException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessage> handleGeocodingException(GeocodingException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage()));
+        return new ResponseEntity<>(new ErrorMessage()
+                .builder().errorCode(ex.getErrorCode())
+                .message(ex.getMessage())
+                .build(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(PlacesException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<ErrorMessage> handlePlacesException(PlacesException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new ErrorMessage(HttpStatus.NOT_FOUND, ex.getMessage()));
+        return new ResponseEntity<>(new ErrorMessage()
+                .builder().errorCode(ex.getErrorCode())
+                .message(ex.getMessage())
+                .build(), HttpStatus.NOT_FOUND);
     }
 
-    // Handle other exceptions with a generic error message
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ErrorMessage> handleOtherExceptions(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorMessage(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred."));
+                .body(new ErrorMessage("An unexpected error occurred.", "INTERNAL_SERVER_ERROR"));
     }
 }

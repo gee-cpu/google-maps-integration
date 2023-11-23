@@ -1,13 +1,15 @@
 package com.gonchaba.maps.exception;
 
+import lombok.Data;
 
+@Data
 public class DirectionsException extends RuntimeException {
 
-    public DirectionsException(String message) {
+    private String errorCode;
+
+    public DirectionsException(String message, String errorCode) {
         super(message);
+        this.errorCode = errorCode;
     }
 
-    public DirectionsException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }

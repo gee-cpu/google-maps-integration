@@ -24,7 +24,7 @@ public class PlacesServiceImpl implements PlacesService {
         try {
             return PlacesApi.textSearchQuery(geoApiContext, query).await();
         } catch (Exception e) {
-           throw new PlacesException("Error occurred while searching places");
+           throw new PlacesException("Error occurred while searching places","UNKNOWN_ERROR");
         }
     }
 
@@ -33,7 +33,7 @@ public class PlacesServiceImpl implements PlacesService {
         try {
             return PlacesApi.placeDetails(geoApiContext, placeId).await();
         } catch (Exception e) {
-            throw new PlacesException("Error occurred while retrieving details of the place");
+            throw new PlacesException("Error occurred while retrieving details of the place","UNKNOWN_ERROR");
         }
     }
 
@@ -45,7 +45,7 @@ public class PlacesServiceImpl implements PlacesService {
                   .rankby(RankBy.DISTANCE)
                   .await();
       }catch (Exception e){
-          throw new PlacesException("Error occurred while searching for police stations");
+          throw new PlacesException("Error occurred while searching for police stations","UNKNOWN_ERROR");
 
       }
     }

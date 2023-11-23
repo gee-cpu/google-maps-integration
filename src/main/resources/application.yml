@@ -1,16 +1,13 @@
-
-
+server:
+  port: 8081
 spring:
   cloud:
     config:
       enabled: false
   application:
     name: google-maps-integration
-
+  config:
+    import:
+     config-server: http://localhost:8083
 api:
   key: AIzaSyDgJRj13LPFNVu_3BggGe1zxpxVpC2OS5k
-
-
-
-
-

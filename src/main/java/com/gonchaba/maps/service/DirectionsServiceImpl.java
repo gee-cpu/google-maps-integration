@@ -31,10 +31,10 @@ public class DirectionsServiceImpl implements DirectionsService {
             if (result.routes.length > 0) {
                 return result.routes[0];
             } else {
-                throw new DirectionsException("No routes found.");
+                throw new DirectionsException("No routes found.","CANNOT_FIND_DIRECTIONS");
             }
         } catch (Exception e) {
-            throw new DirectionsException("Error occurred while getting directions.", e);
+            throw new DirectionsException("Error occurred while getting directions.", "UNKNOWN_ERROR");
         }
     }
 }

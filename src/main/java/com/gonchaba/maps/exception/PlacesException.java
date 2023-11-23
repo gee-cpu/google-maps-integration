@@ -1,13 +1,14 @@
 package com.gonchaba.maps.exception;
 
+import lombok.Data;
 
+@Data
 public class PlacesException extends RuntimeException {
 
-    public PlacesException(String message) {
-        super(message);
-    }
+    private String errorCode;
 
-    public PlacesException(String message, Throwable cause) {
-        super(message, cause);
+    public PlacesException(String message, String errorCode) {
+        super(message);
+        this.errorCode = errorCode;
     }
 }

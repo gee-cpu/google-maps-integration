@@ -1,11 +1,13 @@
 package com.gonchaba.maps.exception;
 
-public class GeocodingException extends RuntimeException{
+import lombok.Data;
 
-    public GeocodingException(String message){
+@Data
+public class GeocodingException extends RuntimeException{
+    private String errorCode;
+
+    public GeocodingException(String message, String errorCode) {
         super(message);
-    }
-    public GeocodingException(String message, Throwable cause){
-        super(message, cause);
+        this.errorCode = errorCode;
     }
 }

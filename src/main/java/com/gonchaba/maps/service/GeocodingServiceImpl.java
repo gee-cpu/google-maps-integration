@@ -18,15 +18,6 @@ public class GeocodingServiceImpl implements GeocodingService {
                 .build();
     }
 
-    /*@Override
-    public GeocodingResult geocodeAddress(String address) {
-        try {
-            return GeocodingApi.geocode(geoApiContext, address).await()[0];
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }*/
     @Override
     public GeocodingResult geocodeAddress(String address) {
         try {
@@ -34,10 +25,10 @@ public class GeocodingServiceImpl implements GeocodingService {
             if (results.length > 0) {
                 return results[0];
             } else {
-                throw new GeocodingException("No geocoding results found for the given address: " + address);
+                throw new GeocodingException("No geocoding results found for the given address: " + address, "NOT_FOUND");
             }
         } catch (Exception e) {
-            throw new GeocodingException("Error occurred while geocoding address: " + address, e);
+            throw new GeocodingException("Error occurred while geocoding address: " + address, "UNKNOWN_ERROR");
         }
     }
 }

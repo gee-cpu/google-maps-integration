@@ -1,7 +1,7 @@
 package com.gonchaba.maps.service;
 
 import com.gonchaba.maps.config.GoogleMapsConfig;
-import com.gonchaba.maps.exception.PlacesException;
+import com.gonchaba.maps.exception.CustomMapsException;
 import com.google.maps.GeoApiContext;
 import com.google.maps.PlacesApi;
 import com.google.maps.model.PlaceDetails;
@@ -24,7 +24,7 @@ public class PlacesServiceImpl implements PlacesService {
         try {
             return PlacesApi.textSearchQuery(geoApiContext, query).await();
         } catch (Exception e) {
-           throw new PlacesException("Error occurred while searching places","UNKNOWN_ERROR");
+            throw new CustomMapsException("Error occurred while searching places", "UNKNOWN_ERROR", 500);
         }
     }
 
@@ -33,20 +33,20 @@ public class PlacesServiceImpl implements PlacesService {
         try {
             return PlacesApi.placeDetails(geoApiContext, placeId).await();
         } catch (Exception e) {
-            throw new PlacesException("Error occurred while retrieving details of the place","UNKNOWN_ERROR");
+            throw new CustomMapsException("Error occurred while retrieving details of the place", "UNKNOWN_ERROR", 500);
         }
     }
 
     @Override
     public PlacesSearchResponse findPoliceStations(double latitude, double longitude) {
-      try {
-          return PlacesApi.nearbySearchQuery(geoApiContext, new com.google.maps.model.LatLng(latitude, longitude))
-                  .keyword("police station")
-                  .rankby(RankBy.DISTANCE)
-                  .await();
-      }catch (Exception e){
-          throw new PlacesException("Error occurred while searching for police stations","UNKNOWN_ERROR");
+        try {
+            return PlacesApi.nearbySearchQuery(geoApiContext, new com.google.maps.model.LatLng(latitude, longitude))
+                    .keyword("police station")
+                    .rankby(RankBy.DISTANCE)
+                    .await();
+        } catch (Exception e) {
+            throw new CustomMapsException("Error occurred while searching for police stations", "UNKNOWN_ERROR", 500);
 
-      }
+        }
     }
 }

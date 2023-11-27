@@ -1,15 +1,18 @@
 package com.gonchaba.maps.controller;
 
 
+import com.gonchaba.maps.exception.CustomMapsException;
 import com.gonchaba.maps.service.PlacesService;
 import com.google.maps.model.PlaceDetails;
 import com.google.maps.model.PlacesSearchResponse;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CircuitBreaker(name = "external", fallbackMethod = "fallback")
 @RestController
 public class PlacesController {
     private final PlacesService placesService;
@@ -40,6 +43,9 @@ public class PlacesController {
         return ResponseEntity.ok(response);
     }
 
+    void fallBack(Exception e) {
+        throw new CustomMapsException("Places api service not available,", "UNAVAILABLE", 500);
+    }
 
 }
 

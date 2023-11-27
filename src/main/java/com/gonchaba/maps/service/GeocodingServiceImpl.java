@@ -2,7 +2,7 @@ package com.gonchaba.maps.service;
 
 
 import com.gonchaba.maps.config.GoogleMapsConfig;
-import com.gonchaba.maps.exception.GeocodingException;
+import com.gonchaba.maps.exception.CustomMapsException;
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
 import com.google.maps.model.GeocodingResult;
@@ -25,10 +25,10 @@ public class GeocodingServiceImpl implements GeocodingService {
             if (results.length > 0) {
                 return results[0];
             } else {
-                throw new GeocodingException("No geocoding results found for the given address: " + address, "NOT_FOUND");
+                throw new CustomMapsException("No geocoding results found for the given address: " + address, "NOT_FOUND", 404);
             }
         } catch (Exception e) {
-            throw new GeocodingException("Error occurred while geocoding address: " + address, "UNKNOWN_ERROR");
+            throw new CustomMapsException("Error occurred while geocoding address: " + address, "UNKNOWN_ERROR", 500);
         }
     }
 }

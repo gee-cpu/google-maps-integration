@@ -9,5 +9,20 @@ spring:
   config:
     import:
      config-server: http://localhost:8083
+  zipkin:
+    baseUrl: http://localhost:9411
 api:
   key: AIzaSyDgJRj13LPFNVu_3BggGe1zxpxVpC2OS5k
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      external:
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-opn-state: 6s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-windows-size: 10
+        sliding-window-type: COUNT_BASED

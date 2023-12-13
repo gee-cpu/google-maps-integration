@@ -6,9 +6,25 @@ spring:
       enabled: false
   application:
     name: google-maps-integration
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: https://dev-44453706.okta.com/oauth2/default
+      client:
+        registration:
+          internal-client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oadsyp6j7ur9KEs85d7
+            client-secret: GOfasQdsTma1ue7nlw9KI-X60blaQ7k5ZDIl9rbX12emwn-SADk2R9IHzatVPTmd
+        provider:
+          okta:
+            issuer-uri: https://dev-44453706.okta.com/oauth2/default
   config:
     import:
-     config-server: http://localhost:8083
+      config-server: http://localhost:8083
   zipkin:
     baseUrl: http://localhost:9411
 api:

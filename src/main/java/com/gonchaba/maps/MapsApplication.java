@@ -24,7 +24,7 @@ public class MapsApplication {
         SpringApplication.run(MapsApplication.class, args);
     }
 
-    @Bean
+ /*   @Bean
     public OAuth2AuthorizedClientManager clientManager(ClientRegistrationRepository clientRegistrationRepository,
                                                        OAuth2AuthorizedClientRepository auth2AuthorizedClientRepository) {
         OAuth2AuthorizedClientProvider auth2AuthorizedClientProvider
@@ -37,5 +37,5 @@ public class MapsApplication {
         defaultOAuth2AuthorizedClientManager.setAuthorizedClientProvider(auth2AuthorizedClientProvider);
 
         return clientManager(clientRegistrationRepository, auth2AuthorizedClientRepository);
-    }
+    }*/
 }

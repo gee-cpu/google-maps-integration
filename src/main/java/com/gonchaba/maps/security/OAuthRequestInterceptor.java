@@ -1,3 +1,4 @@
+/*
 package com.gonchaba.maps.security;
 
 import feign.RequestInterceptor;
@@ -30,3 +31,4 @@ public class OAuthRequestInterceptor implements RequestInterceptor {
 
     }
 }
+*/

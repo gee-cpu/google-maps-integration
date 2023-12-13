@@ -1,3 +1,4 @@
+/*
 package com.gonchaba.maps.security;
 
 import org.springframework.context.annotation.Bean;
@@ -32,3 +33,4 @@ public class WebSecurityConfig {
        return httpSecurity.build();
     }
 }
+*/

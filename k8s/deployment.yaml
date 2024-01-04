@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: google-maps-integration
+  namespace: default
+  labels:
+    app: google-maps-integration  # Consistent label
+spec:
+  selector:
+    matchLabels:
+      app: google-maps-integration  # Consistent label
+  replicas: 2  # High availability
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: google-maps-integration  # Consistent label
+    spec:
+      containers:
+      - name: google-maps-integration
+        image: geecpu/google-maps-integration:latest  # Specify image tag
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        livenessProbe:
+          httpGet:  # Use HTTP for health checks
+            path: /_status/healthz
+            port: 8081  # Target container port
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /_status/healthz
+            port: 8081
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+          periodSeconds: 10
+        env:
+          - name: EUREKA_SERVER_ADDRESS
+            valueFrom:
+              configMapKeyRef:
+                name: eureka-cm
+                key: eureka_service_address
+          - name: CONFIG_SERVER_URL
+            valueFrom:
+              configMapKeyRef:
+                name: config-cm
+                key: config_server_url
+        ports:
+          - containerPort: 8081
+            name: maps-int-port  # Shortened port name
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: google-maps-integration-svc
+  namespace: default
+spec:
+  selector:
+    app: google-maps-integration  # Consistent label
+  type: ClusterIP
+  sessionAffinity: None
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 10800
+  ports:
+    - name: maps-port
+      protocol: TCP
+      port: 80
+      targetPort: 8081

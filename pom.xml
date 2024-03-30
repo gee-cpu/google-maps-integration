@@ -29,6 +29,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <repository>
+            <id>google-cloud-tools</id>
+            <url>https://dl.google.com/repository/maven-tools</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
